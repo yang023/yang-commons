@@ -44,6 +44,9 @@ public class PageResponse<T> extends AbstractResponse {
     }
 
     public Long getTotalPage() {
+        if (size == 0) {
+            return 0L;
+        }
         return Math.abs(total / size) + (total % size == 0 ? 0 : 1);
     }
 
