@@ -2,6 +2,8 @@ package cn.yang.commons;
 
 import org.apache.commons.lang3.RandomUtils;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +14,7 @@ public class SerialNumberBuilder {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
-    private static char[] CHAR_TEMP;
+    private static final char[] CHAR_TEMP;
 
     static {
         char[] temp = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -22,14 +24,15 @@ public class SerialNumberBuilder {
         }
     }
 
-    public static String create(String prefix, int randomLength) {
+    public static String create(String prefix, int randomLength, String suffix) {
         StringBuilder builder = new StringBuilder(prefix).append("_");
         for (int i = 0; i < randomLength; i++) {
             int index = RandomUtils.nextInt(0, CHAR_TEMP.length - 1);
             builder.append(CHAR_TEMP[index]);
         }
-        builder.append(LocalDateTime.now().format(FORMATTER));
-        return builder.toString();
+        return builder
+                .append(LocalDateTime.now().format(FORMATTER))
+                .append(suffix).toString();
     }
 
 }
