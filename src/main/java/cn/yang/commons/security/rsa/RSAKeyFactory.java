@@ -22,6 +22,14 @@ public class RSAKeyFactory {
     private PublicKey publicKey;
     private PrivateKey privateKey;
 
+    public PublicKey getPublicKey() {
+        return publicKey;
+    }
+
+    public PrivateKey getPrivateKey() {
+        return privateKey;
+    }
+
     public void initKeyPair() throws NoSuchAlgorithmException {
         KeyPairGenerator rsa = KeyPairGenerator.getInstance(KEY_ALGORITHM);
         KeyPair keyPair = rsa.genKeyPair();
