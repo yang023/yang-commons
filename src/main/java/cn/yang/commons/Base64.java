@@ -1,9 +1,5 @@
 package cn.yang.commons;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-
 /**
  * @author yang 2019/2/2
  */
