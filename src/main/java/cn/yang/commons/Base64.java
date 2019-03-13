@@ -9,27 +9,19 @@ import java.net.URLEncoder;
  */
 public class Base64 {
 
-    public static String encode2String(String str) {
-        return java.util.Base64.getEncoder().encodeToString(encode(str));
+    public static byte[] encode(byte[] source) {
+        return java.util.Base64.getEncoder().encode(source);
     }
 
-    public static byte[] encode(String str) {
-        try {
-            return URLEncoder.encode(str, "UTF-8").getBytes();
-        } catch (UnsupportedEncodingException e) {
-            return null;
-        }
+    public static byte[] encode(String source) {
+        return encode(source.getBytes());
     }
 
-    public static String decode2String(String str) {
-        try {
-            return URLDecoder.decode(new String(decode(str)), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            return null;
-        }
+    public static byte[] decode(byte[] decrypt) {
+        return java.util.Base64.getDecoder().decode(decrypt);
     }
 
-    public static byte[] decode(String str) {
-        return java.util.Base64.getDecoder().decode(str);
+    public static byte[] decode(String decrypt) {
+        return decode(decrypt.getBytes());
     }
 }
