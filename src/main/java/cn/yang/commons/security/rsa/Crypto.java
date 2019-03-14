@@ -38,7 +38,7 @@ public class Crypto {
      * @return
      * @throws Exception
      */
-    private byte[] encrypt(String str) throws Exception {
+    public byte[] encrypt(String str) throws Exception {
         //获取一个加密算法为RSA的加解密器对象cipher。
         Cipher cipher = Cipher.getInstance("RSA");
         //设置为加密模式,并将公钥给cipher。
@@ -56,7 +56,7 @@ public class Crypto {
      * @return
      * @throws Exception
      */
-    private String decrypt(byte[] secret) throws Exception {
+    public String decrypt(byte[] secret) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA");
         //传递私钥，设置为解密模式。
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
