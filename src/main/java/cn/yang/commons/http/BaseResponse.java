@@ -39,6 +39,6 @@ public class BaseResponse<T> extends AbstractResponse {
     }
 
     public static <T> BaseResponse<T> failed(T data) {
-        return BaseResponse.ok(data, null);
+        return BaseResponse.failed(data, null);
     }
 }
