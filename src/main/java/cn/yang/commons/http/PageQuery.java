@@ -3,7 +3,7 @@ package cn.yang.commons.http;
 /**
  * @author yang 2019/2/2
  */
-public abstract class AbstractPageQuery {
+public class PageQuery {
 
     private Integer page;
     private Integer size;

@@ -78,11 +78,25 @@ public class PageResponse<T> extends AbstractResponse {
         return PageResponse.ok(page, size, total, list, null);
     }
 
-    public static <T> PageResponse<T> failed(Integer page, Integer size, Long total, List<T> data, String message) {
-        return PageResponse.code(ResponseCode.FAILED).message(message).pageResponse(page, size, total, data);
+    public static <T> PageResponse<T> failed(String message) {
+        return PageResponse.code(ResponseCode.FAILED).message(message).pageResponse(0, 0, 0L, null);
     }
 
-    public static <T> PageResponse<T> failed(Integer page, Integer size, Long total, List<T> data) {
-        return PageResponse.ok(page, size, total, data, null);
+    public static <T> PageResponse<T> failed() {
+        return PageResponse.failed(null);
+    }
+
+    public static <T> PageResponse<T> ok(PageInfo<T> pageInfo) {
+        return PageResponse.ok(pageInfo, null);
+    }
+
+    public static <T> PageResponse<T> ok(PageInfo<T> pageInfo, String message) {
+        return PageResponse.ok(
+                pageInfo.getPage(),
+                pageInfo.getSize(),
+                pageInfo.getTotal(),
+                pageInfo.getList(),
+                message
+        );
     }
 }
