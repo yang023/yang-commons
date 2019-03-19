@@ -82,8 +82,12 @@ public class PageResponse<T> extends AbstractResponse {
         return PageResponse.code(ResponseCode.FAILED).message(message).pageResponse(0, 0, 0L, null);
     }
 
-    public static <T> PageResponse<T> failed() {
-        return PageResponse.failed(null);
+    public static ResponseBuilder failed() {
+        return PageResponse.failed();
+    }
+
+    public static ResponseBuilder ok() {
+        return PageResponse.ok();
     }
 
     public static <T> PageResponse<T> ok(PageInfo<T> pageInfo) {
@@ -99,4 +103,6 @@ public class PageResponse<T> extends AbstractResponse {
                 message
         );
     }
+
+
 }

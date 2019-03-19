@@ -1,5 +1,6 @@
 package cn.yang.commons.http;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,8 +40,7 @@ public class ResponseBuilder {
     }
 
     public <T> BaseResponse<T> failed(T data, String message) {
-        code(ResponseCode.FAILED).message(message);
-        return baseResponse(data);
+        return code(ResponseCode.FAILED).message(message).baseResponse(data);
     }
 
     public <T> BaseResponse<T> baseResponse(T data) {
@@ -49,6 +49,10 @@ public class ResponseBuilder {
         response.setMessage(message);
         response.setData(data);
         return response;
+    }
+
+    public <T> BaseResponse<T> baseResponse() {
+        return baseResponse(null);
     }
 
     public <T> PageResponse<T> pageResponse(List<T> data) {
@@ -63,7 +67,10 @@ public class ResponseBuilder {
     }
 
     public <T> PageResponse<T> pageResponse(Integer page, Integer size, Long total, List<T> list) {
-        page(page, size).total(total);
-        return pageResponse(list);
+        return page(page, size).total(total).pageResponse(list);
+    }
+
+    public <T> PageResponse<T> pageResponse() {
+        return pageResponse(new ArrayList<>(0));
     }
 }

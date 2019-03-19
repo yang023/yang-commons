@@ -26,6 +26,18 @@ public class BaseResponse<T> extends AbstractResponse {
         return builder;
     }
 
+    public static ResponseBuilder ok() {
+        ResponseBuilder builder = new ResponseBuilder();
+        builder.code(ResponseCode.SUCCESS);
+        return builder;
+    }
+
+    public static ResponseBuilder failed() {
+        ResponseBuilder builder = new ResponseBuilder();
+        builder.code(ResponseCode.FAILED);
+        return builder;
+    }
+
     public static <T> BaseResponse<T> ok(T data, String message) {
         return BaseResponse.code(ResponseCode.SUCCESS).message(message).baseResponse(data);
     }
