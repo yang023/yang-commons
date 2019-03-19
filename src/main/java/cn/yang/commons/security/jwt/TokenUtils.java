@@ -23,7 +23,7 @@ public class TokenUtils {
     private PrivateKey privateKey;
     private PublicKey publicKey;
 
-    public TokenUtils(PrivateKey privateKey, PublicKey publicKey) {
+    public TokenUtils(PublicKey publicKey, PrivateKey privateKey) {
         this.privateKey = privateKey;
         this.publicKey = publicKey;
     }
