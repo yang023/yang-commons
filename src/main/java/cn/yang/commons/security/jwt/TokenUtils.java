@@ -54,14 +54,4 @@ public class TokenUtils {
     private Key getPrivateKey() {
         return this.privateKey;
     }
-
-
-    public static void main(String[] args) throws Exception {
-        RSAKeyFactory factory = new RSAKeyFactory();
-        factory.loadKeyPair("/Users/yang/workspace/demo/demo", "key-pair-store");
-        TokenUtils tokenUtils = new TokenUtils(factory.getPrivateKey(), factory.getPublicKey());
-        String token = tokenUtils.token(Collections.singletonMap("user", "Yang"));
-        Claims verify = tokenUtils.verify(token);
-        System.out.println(verify);
-    }
 }
