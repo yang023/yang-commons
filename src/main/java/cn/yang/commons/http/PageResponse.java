@@ -1,50 +1,34 @@
 package cn.yang.commons.http;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author yang 2019/1/20
  */
-public class PageResponse<T> extends AbstractResponse {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PageResponse<T> {
+    private Integer code;
+    private String message;
     private List<T> data;
-    private Long total;
-    private Integer size;
-    private Integer page;
-
-    public List<T> getData() {
-        return data;
-    }
-
-    public void setData(List<T> data) {
-        this.data = data;
-    }
-
-    public Long getTotal() {
-        return total;
-    }
-
-    public void setTotal(Long total) {
-        this.total = total;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
+    @Builder.Default
+    private Long total = 0L;
+    @Builder.Default
+    private Long size = 0L;
+    @Builder.Default
+    private Long page = 0L;
 
     public Long getTotalPage() {
-        if (size == 0) {
+        if (Objects.isNull(size) || size == 0) {
             return 0L;
         }
         return Math.abs(total / size) + (total % size == 0 ? 0 : 1);
@@ -55,54 +39,14 @@ public class PageResponse<T> extends AbstractResponse {
     }
 
     public boolean isHasNextPage() {
-        return Long.valueOf(page) < getTotalPage();
+        return page < getTotalPage();
     }
 
-    public static ResponseBuilder code(Integer code) {
-        ResponseBuilder builder = new ResponseBuilder();
-        builder.code(code);
-        return builder;
+    public PageResponse<T> pageInfo(PageInfo<T> pageInfo) {
+        size = pageInfo.getSize();
+        page = pageInfo.getPage();
+        total = pageInfo.getTotal();
+        data = pageInfo.getList();
+        return this;
     }
-
-    public static ResponseBuilder message(String message) {
-        ResponseBuilder builder = new ResponseBuilder();
-        builder.message(message);
-        return builder;
-    }
-
-    public static <T> PageResponse<T> ok(Integer page, Integer size, Long total, List<T> data, String message) {
-        return PageResponse.code(ResponseCode.SUCCESS).message(message).pageResponse(page, size, total, data);
-    }
-
-    public static <T> PageResponse<T> ok(Integer page, Integer size, Long total, List<T> list) {
-        return PageResponse.ok(page, size, total, list, null);
-    }
-
-    public static <T> PageResponse<T> failed(String message) {
-        return PageResponse.code(ResponseCode.FAILED).message(message).pageResponse(0, 0, 0L, null);
-    }
-
-    public static ResponseBuilder failed() {
-        return PageResponse.failed();
-    }
-
-    public static ResponseBuilder ok() {
-        return PageResponse.ok();
-    }
-
-    public static <T> PageResponse<T> ok(PageInfo<T> pageInfo) {
-        return PageResponse.ok(pageInfo, null);
-    }
-
-    public static <T> PageResponse<T> ok(PageInfo<T> pageInfo, String message) {
-        return PageResponse.ok(
-                pageInfo.getPage(),
-                pageInfo.getSize(),
-                pageInfo.getTotal(),
-                pageInfo.getList(),
-                message
-        );
-    }
-
-
 }

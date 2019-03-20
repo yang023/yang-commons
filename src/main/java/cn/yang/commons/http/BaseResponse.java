@@ -1,56 +1,31 @@
 package cn.yang.commons.http;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author yang 2019/1/20
  */
-public class BaseResponse<T> extends AbstractResponse {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class BaseResponse<T> {
     private T data;
 
-    public T getData() {
-        return data;
+    private String message;
+
+    private Integer code;
+
+    public static <T> BaseResponseBuilder ok() {
+        return BaseResponse.<T>builder()
+                .code(ResponseCode.SUCCESS);
     }
 
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public static ResponseBuilder code(Integer code) {
-        ResponseBuilder builder = new ResponseBuilder();
-        builder.code(code);
-        return builder;
-    }
-
-    public static ResponseBuilder message(String message) {
-        ResponseBuilder builder = new ResponseBuilder();
-        builder.message(message);
-        return builder;
-    }
-
-    public static ResponseBuilder ok() {
-        ResponseBuilder builder = new ResponseBuilder();
-        builder.code(ResponseCode.SUCCESS);
-        return builder;
-    }
-
-    public static ResponseBuilder failed() {
-        ResponseBuilder builder = new ResponseBuilder();
-        builder.code(ResponseCode.FAILED);
-        return builder;
-    }
-
-    public static <T> BaseResponse<T> ok(T data, String message) {
-        return BaseResponse.code(ResponseCode.SUCCESS).message(message).baseResponse(data);
-    }
-
-    public static <T> BaseResponse<T> ok(T data) {
-        return BaseResponse.ok(data, null);
-    }
-
-    public static <T> BaseResponse<T> failed(T data, String message) {
-        return BaseResponse.code(ResponseCode.FAILED).message(message).baseResponse(data);
-    }
-
-    public static <T> BaseResponse<T> failed(T data) {
-        return BaseResponse.failed(data, null);
+    public static <T> BaseResponseBuilder failed() {
+        return BaseResponse.<T>builder()
+                .code(ResponseCode.FAILED);
     }
 }

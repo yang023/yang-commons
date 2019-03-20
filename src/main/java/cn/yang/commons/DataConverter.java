@@ -27,6 +27,10 @@ public class DataConverter {
         this.gson = gson;
     }
 
+    public String getJsonWithoutNull() {
+        return gson.toJson(gson.fromJson(json, Object.class));
+    }
+
     public <T> T convert(Class<T> type) {
         return gson.fromJson(this.json, type);
     }
