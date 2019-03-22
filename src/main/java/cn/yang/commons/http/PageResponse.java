@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +31,20 @@ public class PageResponse<T> {
             return 0L;
         }
         return Math.abs(total / size) + (total % size == 0 ? 0 : 1);
+    }
+
+    public Long getSize() {
+        if (size < 0L) {
+            return 0L;
+        }
+        return size;
+    }
+
+    public Long getPage() {
+        if (size < 0L) {
+            return 0L;
+        }
+        return page;
     }
 
     public boolean isHasPrePage() {
