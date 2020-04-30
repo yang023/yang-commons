@@ -1,7 +1,9 @@
 package cn.yang.commons;
 
 /**
- * @author yang 2019/2/2
+ * @author yang
+ * <p>
+ * 封装 JDK 原生 Base64 工具，简化业务代码编写，没有其他特性
  */
 public class Base64 {
 
